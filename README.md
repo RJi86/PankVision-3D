@@ -28,6 +28,21 @@ Moreover, such a model can also assist in planning for surgeries and treatments 
 
 # Method
 
+This dataset utilises the [Medical Segmentation Decathlon Pancreas dataset](http://medicaldecathlon.com/) which includes over 420 3D volumes (Although some were lost when I downloaded them. Please tell me why it happened if you have similar experience). Performing segmentation was especially difficult on this dataset due to it also containing small tumour structures which often confused the model. Soon, I will try it with the TCIA's Pancreas Dataset.
+
+## Preprocessing
+
+A series of transformations are applied to the dataset more consistent results and higher performing models. These include:
+- Adjusting the intensity of the image, Normalizing the image
+- Enhancing the image using Adaptive Histogram Equalization
+- Adding an extra dimension to the data to represent channels
+- Resampling the images to a specified pixel spacing
+- Reorientating the images to a specified anatomical orientation 
+- Scaling the intensity of the images to a specified range
+- Cropping any unnecessary background from the images
+- Resizing the images to a specified spatial size
+- Converting the images to PyTorch tensors
+
 ## Results
 
 ## Note
