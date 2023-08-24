@@ -5,6 +5,7 @@ import os
 import numpy as np
 from monai.losses import DiceLoss
 from tqdm import tqdm
+from sklearn.metrics import confusion_matrix
 
 def dice_metric(predicted, target):
     '''
@@ -83,8 +84,7 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
         save_metric_train.append(epoch_metric_train)
         np.save(os.path.join(model_dir, 'metric_train.npy'), save_metric_train)
 
-        if (epoch + 1) % test_interval == 0:
-
+        if test_interval > 0 and (epoch + 1) % test_interval == 0:
             model.eval()
             with torch.no_grad():
                 test_epoch_loss = 0
@@ -92,22 +92,41 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
                 epoch_metric_test = 0
                 test_step = 0
 
+                all_preds = []
+                all_labels = []
                 for test_data in test_loader:
-
                     test_step += 1
-
                     test_volume = test_data["vol"]
                     test_label = test_data["seg"]
                     test_label = test_label != 0
                     test_volume, test_label = (test_volume.to(device), test_label.to(device),)
-
+                    
                     test_outputs = model(test_volume)
-
+                    
+                    # Calculate test loss
                     test_loss = loss(test_outputs, test_label)
                     test_epoch_loss += test_loss.item()
+
+                    # Calculate test dice metric
                     test_metric = dice_metric(test_outputs, test_label)
                     epoch_metric_test += test_metric
+                    
+                    # Get predicted pixel-wise labels
+                    _, preds = torch.max(test_outputs, dim=1)
+                    all_preds.extend(preds.cpu().numpy().flatten())  # Flatten predicted labels
+                    all_labels.extend(test_label.cpu().numpy().flatten())  # Flatten ground truth labels
+                
+                # Print test loss and test metric
+                test_epoch_loss /= test_step
+                print(f'test_loss_epoch: {test_epoch_loss:.4f}')
+                
+                epoch_metric_test /= test_step
+                print(f'test_dice_epoch: {epoch_metric_test:.4f}')
 
+                # Calculate and print confusion matrix
+                cm = confusion_matrix(all_labels, all_preds)
+                print('Confusion Matrix:')
+                print(cm)
 
                 test_epoch_loss /= test_step
                 print(f'test_loss_epoch: {test_epoch_loss:.4f}')
@@ -131,10 +150,10 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
                     f"at epoch: {best_metric_epoch}"
                 )
 
-
     print(
         f"train completed, best_metric: {best_metric:.4f} "
         f"at epoch: {best_metric_epoch}")
+
 
 
 def show_patient(data, SLICE_NUMBER=1, train=True, test=False):

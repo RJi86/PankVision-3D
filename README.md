@@ -18,7 +18,7 @@ This model, a unique and innovative 3D U-Net structure, is specifically designed
 
 One of the unique aspects of this model is the integration of residual units within its structure. These units help in alleviating the vanishing gradient problem, enabling the model to learn more complex patterns. To stabilize the learning process and introduce non-linearity, the model employs batch normalization and ReLU activation function. A dropout layer is also included for regularization to prevent overfitting. Designed to run on a CUDA-enabled GPU, our model harnesses the power of parallel processing for high-performance computation. This makes it a powerful tool for tackling complex pancreatic segmentation tasks.
 
-## Motivation
+# Motivation
 
 The motivation behind creating an automatic pancreas segmentation model stems from the critical need to improve the diagnosis and treatment of pancreatic cancer. Pancreatic cancer is one of the deadliest forms of cancer, with a five-year survival rate of only 12%. In 2020, there were more than 495,000 new cases of pancreatic cancer worldwide.
 
