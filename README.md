@@ -1,4 +1,4 @@
-[![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D)![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
+[![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
 
 <h1 align="center">
   3D Encoder-Decoder Architecture with Residual Units for Automatic Pancreas Segmentation
