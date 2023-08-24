@@ -1,8 +1,15 @@
-[![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
-
 <h1 align="center">
   3D Encoder-Decoder Architecture with Residual Units for Automatic Pancreas Segmentation
 </h1>
+
+<p align="center"> 
+Authors: Richard Ji, All contributions are welcome!
+
+[![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D?color=red)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
+
+</p>
+
+# Overview
 
 This model, a unique and innovative 3D U-Net structure, is specifically designed for automatic pancreatic segmentation tasks. It stands out due to its enhancement with residual units and an encoder-decoder architecture. This design allows the model to efficiently extract and process volumetric features at multiple scales, making it versatile for various segmentation tasks. The network configuration includes 1 input channel and 2 output channels. It comprises 5 levels of convolutional layers with an increasing number of channels (16, 32, 64, 128, 256), each followed by a stride of 2 for down-sampling. This structure enables the model to capture complex patterns in the data.
 
