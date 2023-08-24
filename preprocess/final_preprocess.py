@@ -17,24 +17,21 @@ from glob import glob
 import os
 
 def preprocess_image(image, a_min=-200, a_max=200):
-    # Apply windowing to the image
-    adjusted_image = (image - 60 + 200) / 400  # Adjust intensity values
-
-    # Normalize the adjusted image to the range [0, 1]
+    adjusted_image = (image - 60 + 200) / 400
     normalized_image = (adjusted_image - np.min(adjusted_image)) / (np.max(adjusted_image) - np.min(adjusted_image))
-
-    # Apply CLAHE enhancement
-    enhanced_image = exposure.equalize_adapthist(normalized_image)
-
+    # convert the PyTorch tensor to a NumPy array
+    normalized_image_np = normalized_image.numpy()
+    enhanced_image = exposure.equalize_adapthist(normalized_image_np)
     return enhanced_image
 
 def prepare(in_dir, pixdim=(1.5, 1.5, 1.0), a_min=-200, a_max=200, spatial_size=[128, 128, 64], cache=False):
-
     set_determinism(seed=0)
 
-    def combined_transforms(image):
-        enhanced_image = preprocess_image(image, a_min=a_min, a_max=a_max)
-        return enhanced_image
+    def combined_transforms(data):
+
+        enhanced_vol = preprocess_image(data["vol"], a_min=a_min, a_max=a_max)
+
+        return {"vol": enhanced_vol, "seg": data["seg"]}
 
     path_train_volumes = sorted(glob(os.path.join(in_dir, "TrainVolumes", "*.nii.gz")))
     path_train_segmentation = sorted(glob(os.path.join(in_dir, "TrainSegmentation", "*.nii.gz")))
@@ -55,7 +52,7 @@ def prepare(in_dir, pixdim=(1.5, 1.5, 1.0), a_min=-200, a_max=200, spatial_size=
             CropForegroundd(keys=["vol", "seg"], source_key="vol"),
             Resized(keys=["vol", "seg"], spatial_size=spatial_size),
             # Applying the combined preprocessing function here
-            combined_transforms(keys=["vol"]),
+            combined_transforms,
             ToTensord(keys=["vol", "seg"]),
         ]
     )
@@ -70,7 +67,7 @@ def prepare(in_dir, pixdim=(1.5, 1.5, 1.0), a_min=-200, a_max=200, spatial_size=
             CropForegroundd(keys=['vol', 'seg'], source_key='vol'),
             Resized(keys=["vol", "seg"], spatial_size=spatial_size),
             # Applying the combined preprocessing function here
-            combined_transforms(keys=["vol"]),
+            combined_transforms,
             ToTensord(keys=["vol", "seg"]),
         ]
     )

@@ -22,4 +22,4 @@ Moreover, such a model can also assist in planning for surgeries and treatments 
 
 The nifti2dicom folder was originally from amine0110. 
 - Check out the repo here: https://github.com/amine0110/nifti2dicom. 
-- Also Check him out on github: https://github.com/amine0110
+- Also check him out on github: https://github.com/amine0110
