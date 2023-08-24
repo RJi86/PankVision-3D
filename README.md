@@ -5,7 +5,9 @@
 <div align="center"> 
   Authors: Richard Ji, All contributions are welcome!
 
-  [![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D?color=red)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
+<br/>
+
+  [![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D?color=8B0000)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydicom)
 
 </div>
 
