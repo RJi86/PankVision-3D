@@ -100,9 +100,9 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
                     test_label = test_data["seg"]
                     test_label = test_label != 0
                     test_volume, test_label = (test_volume.to(device), test_label.to(device),)
-                    
+
                     test_outputs = model(test_volume)
-                    
+
                     # Calculate test loss
                     test_loss = loss(test_outputs, test_label)
                     test_epoch_loss += test_loss.item()
@@ -110,16 +110,16 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
                     # Calculate test dice metric
                     test_metric = dice_metric(test_outputs, test_label)
                     epoch_metric_test += test_metric
-                    
+
                     # Get predicted pixel-wise labels
                     _, preds = torch.max(test_outputs, dim=1)
                     all_preds.extend(preds.cpu().numpy().flatten())  # Flatten predicted labels
                     all_labels.extend(test_label.cpu().numpy().flatten())  # Flatten ground truth labels
-                
+
                 # Print test loss and test metric
                 test_epoch_loss /= test_step
                 print(f'test_loss_epoch: {test_epoch_loss:.4f}')
-                
+
                 epoch_metric_test /= test_step
                 print(f'test_dice_epoch: {epoch_metric_test:.4f}')
 
