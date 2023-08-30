@@ -29,7 +29,7 @@ def calculate_weights(val1, val2):
     weights = weights/summ
     return torch.tensor(weights, dtype=torch.float32)
 
-def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , device=torch.device("cuda:0")):
+def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1, device=torch.device("cuda:0")):
     best_metric = -1
     best_metric_epoch = -1
     save_loss_train = []
@@ -74,7 +74,15 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
             train_metric = dice_metric(outputs, label)
             epoch_metric_train += train_metric
             print(f'Train_dice: {train_metric:.4f}')
-        
+
+            # Append values to lists
+            train_loss_values.append(train_loss.item())
+            train_metric_values.append(train_metric)
+
+        print('-'*20)
+
+        # Calculate standard deviations
+
         train_loss_std = np.std(train_loss_values)
         train_metric_std = np.std(train_metric_values)
         print(f'Train loss standard deviation: {train_loss_std:.4f}')
@@ -85,8 +93,6 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
 
         save_metric_std_train.append(train_metric_std)
         np.save(os.path.join(model_dir, 'metric_std_train.npy'), save_metric_std_train)
-
-        print('-'*20)
 
         train_epoch_loss /= train_step
         print(f'Epoch_loss: {train_epoch_loss:.4f}')
@@ -168,8 +174,6 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
     print(
         f"train completed, best_metric: {best_metric:.4f} "
         f"at epoch: {best_metric_epoch}")
-
-
 
 def show_patient(data, SLICE_NUMBER=1, train=True, test=False):
     """
