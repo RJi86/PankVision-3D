@@ -45,6 +45,8 @@ A series of transformations are applied to the dataset more consistent results a
 
 ## Results
 
+![Pancreas_Result_Segmentation.png](./img/Pancreas_Result_Segmentation.png)
+
 ## Note
 
 The nifti2dicom folder was originally from amine0110. 
