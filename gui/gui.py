@@ -61,7 +61,8 @@ class PancreaticSegmentationGUI(QWidget):
 
         # Create a QHBoxLayout for the title and images
         title_layout = QHBoxLayout()
-
+        title_layout.setSizeConstraint(QLayout.SetFixedSize)
+        
         # Add the title label to the layout
         title_layout.addWidget(title_label)
 
@@ -126,6 +127,18 @@ class PancreaticSegmentationGUI(QWidget):
         # Remove the fixed minimum and maximum values
         self.slider = QSlider(Qt.Horizontal)
         self.slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)  # Allow it to expand
+
+        # Change the slider handle shape to a rectangle and a square
+        self.slider.setStyleSheet("""
+            QSlider::handle:horizontal {
+                background: #5F9EA0;  /* Color of the handle */
+                border: 1px solid #3C7F7E; /* Border color of the handle */
+                width: 20px;  /* Width of the rectangle */
+                height: 10px; /* Height of the square */
+                border-radius: 2px; /* Rounded corners */
+            }
+        """)
+
         self.slider.valueChanged.connect(lambda value: self.update_slice_number(value))
         output_layout.addWidget(self.slider)
 
@@ -148,24 +161,28 @@ class PancreaticSegmentationGUI(QWidget):
         # Image and Segmentation section
         image_layout = QVBoxLayout()
         image_layout.setSizeConstraint(QLayout.SetFixedSize)
-        image_label = QLabel("Image and Segmentation")
-        image_label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        image_layout.addWidget(image_label)
 
         # Create a QHBoxLayout to display the original CT slice and segmentation image side by side
         image_and_segmentation_layout = QHBoxLayout()
         image_and_segmentation_layout.setSizeConstraint(QLayout.SetFixedSize)
 
+        # Create a black square placeholder for the original CT scan
         self.original_label = QLabel()
         self.original_label.setAlignment(Qt.AlignCenter)
-        self.original_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        image_and_segmentation_layout.addWidget(self.original_label)
+        self.original_label.setFixedSize(512, 512)  # Set the size to 512x512 pixels
+        self.original_label.setStyleSheet("background-color: black;")
 
+        # Create a black square placeholder for the segmentation image
         self.segmented_label = QLabel()
         self.segmented_label.setAlignment(Qt.AlignCenter)
-        self.segmented_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.segmented_label.setFixedSize(512, 512)  # Set the size to 512x512 pixels
+        self.segmented_label.setStyleSheet("background-color: black;")
+
+        # Add both labels to the horizontal layout
+        image_and_segmentation_layout.addWidget(self.original_label)
         image_and_segmentation_layout.addWidget(self.segmented_label)
 
+        # Add the horizontal layout to the image layout
         image_layout.addLayout(image_and_segmentation_layout)
 
         main_layout.addLayout(image_layout)
@@ -174,6 +191,9 @@ class PancreaticSegmentationGUI(QWidget):
         self.slice_label = QLabel()
 
         self.setLayout(main_layout)
+
+        self.setWindowTitle('PankVision 3D 1.0.1 Demo')
+        self.show()
 
     def update_slice_number(self, value=None):
         if hasattr(self, 'volume') and self.volume is not None:
@@ -246,8 +266,14 @@ class PancreaticSegmentationGUI(QWidget):
                 print("Min value:", np.min(self.volume))
                 print("Max value:", np.max(self.volume))
 
+                # Update the maximum value of the slider to match the number of slices
                 self.slider.setMinimum(0)
-                self.slider.setMaximum(num_slices - 1)
+                self.slider.setMaximum(num_slices - 2)
+                self.slider.setSingleStep(1)  # Set the step size for the slider
+
+                # Reset the slider to the first slice
+                self.slider.setValue(0)
+
             except Exception as e:
                 print(f"Error loading NIfTI file: {str(e)}")
                 return
@@ -277,14 +303,25 @@ class PancreaticSegmentationGUI(QWidget):
 
         with torch.no_grad():
             # Convert self.volume to a PyTorch tensor
-            volume_tensor = torch.tensor(self.volume, dtype=torch.float32).unsqueeze(0).unsqueeze(1).to(device)
-
-            test_outputs = sliding_window_inference(volume_tensor, roi_size, sw_batch_size, model)
+            # volume_tensor = torch.tensor(self.volume, dtype=torch.float32).unsqueeze(0).unsqueeze(1).to(device)
+            test_loader = self.prepare_test(self.selected_file_path)
+            test_patient = first(test_loader)
+            t_volume = test_patient['vol']
+            # test_outputs = sliding_window_inference(volume_tensor, roi_size, sw_batch_size, model)
+            test_outputs = sliding_window_inference(t_volume.to(device), roi_size, sw_batch_size, model)
             sigmoid_activation = torch.sigmoid(test_outputs)
             test_outputs = sigmoid_activation > 0.53
+            
+            # Ensure the test_outputs is of data type np.uint8
+            test_outputs_np = test_outputs[0, 1, ...].detach().cpu().numpy().astype(np.uint8)
+
+            # Resize the segmentation output to match the original CT scan size
+            original_size = self.volume.shape
+            segmentation_resized = cv2.resize(test_outputs_np, (original_size[1], original_size[0]), interpolation=cv2.INTER_NEAREST)
 
             # Store the segmentation results in self.segmentation
-            self.segmentation = test_outputs.detach().cpu().numpy()
+            self.segmentation = segmentation_resized
+            print("Segmentation Output Size:", self.segmentation.shape)
 
             # Now, update both the original and segmented images for the currently selected slice
             self.update_slice_number(self.slider.value())  # Update the displayed slice
@@ -296,10 +333,10 @@ class PancreaticSegmentationGUI(QWidget):
             slice_number = int(value)
             if (
                 0 <= slice_number < self.volume.shape[2] and
-                0 <= slice_number < self.segmentation.shape[4]
+                0 <= slice_number < self.segmentation.shape[0]  # Adjusted for the resized segmentation
             ):
                 volume_slice = self.volume[:, :, slice_number]
-                segmentation_slice = self.segmentation[0, 1, :, :, slice_number]  # Extract the segmentation slice
+                segmentation_slice = self.segmentation[:, :, slice_number]  # Extract the resized segmentation slice
 
                 volume_slice = (volume_slice - np.min(volume_slice)) / (np.max(volume_slice) - np.min(volume_slice)) * 255
                 volume_slice = volume_slice.astype(np.uint8)
