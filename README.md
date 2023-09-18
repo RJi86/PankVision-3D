@@ -49,6 +49,10 @@ A series of transformations are applied to the dataset more consistent results a
 
 ![Pancreas_Demo_Seg_2.png](./img/Pancreas_Demo_Seg_2.png)
 
+## GUI
+
+![gui_demo.png](img/gui_demo.png)
+
 ## Note
 
 The nifti2dicom folder was originally from amine0110. 
