@@ -67,9 +67,9 @@ python3.9 PankVisionGUI.py
 Any contributions are greatly appreciated! If you want to contribute to this project, you can use the below commands to get started.
 
 1. Fork the Project
-2. Create your Feature Branch `(git checkout -b feature/Feature)``
-3. Commit your Changes `(git commit -m 'Added Feature')``
-4. Push to the Branch `(git push origin feature/Feature)``
+2. Create your Feature Branch `(git checkout -b feature/Feature)`
+3. Commit your Changes `(git commit -m 'Added Feature')`
+4. Push to the Branch `(git push origin feature/Feature)`
 5. Open a Pull Request
 
 ## Final Note
