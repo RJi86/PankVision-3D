@@ -1,5 +1,5 @@
 <h1 align="center">
-  3D Encoder-Decoder Architecture with Residual Units for Automatic Pancreas Segmentation
+  PankVision 3D: Automatic Pancreatic Segmentation Tool
 </h1>
 
 <div align="center"> 
