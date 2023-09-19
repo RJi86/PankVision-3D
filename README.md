@@ -3,7 +3,7 @@
 </h1>
 
 <div align="center"> 
-  Authors: Richard Ji, All contributions are welcome!
+  Authors: Richard Ji
 
 <br/>
 <br/>
