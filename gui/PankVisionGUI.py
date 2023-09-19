@@ -32,7 +32,7 @@ import cv2
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import sys
-sys.path.append('/Users/richardji/Library/CloudStorage/GoogleDrive-jirichard2007@gmail.com/My Drive/Machine-Learning-Biomedicine/PankVision-3D/model')
+sys.path.append('/Users/richardji/Desktop/PankVision-3D/model')
 from get_model import get_model
 
 class PancreaticSegmentationGUI(QWidget):
