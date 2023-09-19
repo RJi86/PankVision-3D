@@ -1,5 +1,5 @@
 <h1 align="center">
-  PankVision 3D: Automatic Pancreatic Segmentation Tool
+  3D Encoder-Decoder Architecture for Automatic Pancreatic Semantic Segmentation
 </h1>
 
 <div align="center"> 
@@ -14,7 +14,7 @@
 
 # Overview
 
-PankVision currently uses a dynamic 3D U-Net architecture. It's unique due to its integration of residual units and an encoder-decoder structure, allowing efficient extraction and processing of volumetric features at multiple scales. The dynamic U-Net configuration includes 1 input channel, 2 output channels, and 5 levels of convolutional layers with an increasing number of channels (16, 32, 64, 128, 256), each followed by a stride of 2 for down-sampling. The model employs batch normalization and ReLU activation function for stabilizing the learning process and introducing non-linearity. A dropout layer is included for regularization to prevent overfitting. Designed to run on a CUDA-enabled GPU, the model leverages parallel processing for high-performance computation, making it a powerful tool for complex pancreatic segmentation tasks.
+PankVision currently uses a Dynamic 3D U-Net architecture. It's unique due to its integration of residual units and an encoder-decoder structure, allowing efficient extraction and processing of volumetric features at multiple scales. The Dynamic U-Net configuration includes 1 input channel, 2 output channels, and 5 levels of convolutional layers with an increasing number of channels (16, 32, 64, 128, 256), each followed by a stride of 2 for down-sampling. The model employs batch normalization and ReLU activation function for stabilizing the learning process and introducing non-linearity. A dropout layer is included for regularization to prevent overfitting. Designed to run on a CUDA-enabled GPU, the model leverages parallel processing for high-performance computation, making it a powerful tool for complex pancreatic segmentation tasks.
 
 ## Motivation
 
