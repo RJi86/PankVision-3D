@@ -31,7 +31,6 @@ An Overview of Dynamic Unet is depicted in this picture:
 A series of transformations are applied to the dataset more consistent results and higher performing models. This is a segment of preprocessing code.
 
 ![Preprocess_Demo_Code.png](./img/Preprocess_Demo_Code.png)
-
 Features Summarised:
 - [x] Adjusting the intensity of the image, Normalizing the image
 - [x] Enhancing the image using Adaptive Histogram Equalization
