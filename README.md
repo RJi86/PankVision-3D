@@ -46,9 +46,11 @@ Features Summarised:
 
 Recent Results of Dynamic Unet
 
-![Pancreas_Demo_Seg_1.png](./img/Pancreas_Demo_Seg_1.png)
-
-![Pancreas_Demo_Seg_2.png](./img/Pancreas_Demo_Seg_2.png)
+| . | . | 
+|-----------------|-----------------|
+| ![result1.png](./img/result_img/result1.png)   | ![result4.png](./img/result_img/result4.png)   | 
+| ![result2.png](./img/result_img/result2.png)   | ![result5.png](./img/result_img/result5.png)   | 
+| ![result3.png](./img/result_img/result3.png)   | ![result6.png](./img/result_img/result6.png)   | 
 
 ## UI
 
