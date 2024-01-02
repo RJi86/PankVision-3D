@@ -52,13 +52,20 @@ Recent Results of Dynamic Unet
 | ![result2.png](./img/result_img/result2.png)   | ![result5.png](./img/result_img/result5.png)   | 
 | ![result3.png](./img/result_img/result3.png)   | ![result6.png](./img/result_img/result6.png)   | 
 
+## Usage and Installation
+
+1. Create virtual environment `conda create -n pankvision3d python=3.10 -y` and activate `conda activate pankvision3d`
+2. (Optional: If learning through python) Install [Pytorch 2.0](https://pytorch.org/get-started/locally/)
+3. `git clone https://github.com/RJi26/PankVision-3D`
+4. Enter PankVision folder via `cd PankVision-3D` and run `pip install -e .`
+
 ## UI
 
-I also made a UI based tool for pancreatic segmentation visualization. The UI can be started through cloning the repository and running the following commands.
+PyQt5 based tool for pancreatic segmentation visualization. The UI can be started through running the following commands. Remember to install `PyQT5` with [pip](https://pypi.org/project/PyQt5/): `pip install PyQt5` or [conda](https://anaconda.org/anaconda/pyqt): `conda instsall -c anaconda pyqt5`
 
 ```
 cd gui
-python3.9 PankVisionGUI.py
+python gui.py
 ```
 
 ![gui_demo.png](img/gui_demo.png)
