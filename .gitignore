@@ -8,3 +8,5 @@ dataset/dataset-TCIA
 results/
 
 env/
+
+requirements.txt
