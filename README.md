@@ -8,7 +8,7 @@
 <br/>
 <br/>
 
-  [![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D?color=FFF700)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/3.9%2B) ![](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+  [![GitHub issues](https://img.shields.io/github/issues/richardji1/PankVision-3D?color=FFF700)](https://github.com/richardji1/PankVision-3D/issues) [![GitHub stars](https://img.shields.io/github/stars/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D/stargazers) [![GitHub license](https://img.shields.io/github/license/richardji1/PankVision-3D)](https://github.com/richardji1/PankVision-3D) ![PyPI - Python Version](https://img.shields.io/badge/python-3.9+-blue) ![](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
 </div>
 
