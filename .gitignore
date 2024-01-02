@@ -16,3 +16,6 @@ fastapi/
 PankVision3D-env/
 
 .DS_Store
+
+.tmp.drivedownload/
+.tmp.driveupload/
