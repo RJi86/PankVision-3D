@@ -61,7 +61,7 @@ Recent Results of Dynamic Unet
 
 ## UI
 
-PyQt5 based tool for pancreatic segmentation visualization. The UI can be started through running the following commands. Remember to install `PyQT5` with [pip](https://pypi.org/project/PyQt5/): `pip install PyQt5` or [conda](https://anaconda.org/anaconda/pyqt): `conda instsall -c anaconda pyqt5`
+PyQt5 based tool for pancreatic segmentation visualization. The UI can be started through running the following commands. Remember to install `PyQT5` with [pip](https://pypi.org/project/PyQt5/): `pip install PyQt5` or [conda](https://anaconda.org/anaconda/pyqt): `conda install -c anaconda pyqt5`
 
 ```
 cd gui
